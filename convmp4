@@ -1,0 +1,23 @@
+#!/bin/sh
+
+if [ ! -f "$1" ];then
+        exit
+fi
+
+for f in "$@"; 
+do 
+
+        echo "$f"
+        mime=$(file -b --mime-type "$f")
+        if [ ! "${mime%/*}" = "video" ];then
+                echo "file is not a video !!"
+                continue
+        fi
+         big_filename="$f"
+         filename="${big_filename%.*}"
+         printf 'do you want cover %s to %s.mp4 ?(y/N)' "$big_filename" "$filename"
+         read chos
+         if [ "$chos" = "y" ];then
+                ffmpeg -i "$big_filename" -strict experimental  "$filename.mp4";
+         fi
+done

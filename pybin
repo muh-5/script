@@ -1,0 +1,19 @@
+#!/bin/sh
+# convert python to binary
+if [ ! -f "$1" ];then
+        exit
+fi
+
+CC=tcc
+
+filename=$(basename -- "$1")
+extension="${filename##*.}"
+filename="${filename%.*}"
+if [ "$extension" = "py" ];then
+        cython3 -3 --embed -o "$filename.c" "$filename.py"
+         $CC -Os -I /usr/include/python3.10 -o "$filename" "$filename.c" -lpython3.10 -lpthread -lm -lutil -ldl
+         echo "done"
+else
+       echo "Your file is not python type"
+       echo "please input .py file"
+fi
