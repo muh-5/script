@@ -22,7 +22,7 @@ elif [ "${1#*.}" = "m4a" ];then
 elif [ "$mime" = "text/html" ];then
 	${BROWSER} "$1"
 elif [ "$mime" = "text/plain" ];then
-	 gtkedit "$1"
+	 $TERM vim "$1"
 elif [ "${mime%/*}" = "text" ];then
 	${TERM} vim "$1"
 elif [ "${mime%/*}" = "image" ];then
